@@ -1,0 +1,6 @@
+python-kaitaistruct (0.7-1) unstable; urgency=low
+
+  * First upload (Closes: #849556)
+  * source package automatically created by stdeb 0.8.5
+
+ -- Sebastien Delafond <seb@debian.org>  Fri, 07 Jul 2017 12:18:32 +0200
