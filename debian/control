@@ -3,10 +3,10 @@ Maintainer: Sebastien Delafond <seb@debian.org>
 Section: python
 Priority: optional
 Build-Depends: dh-python, python-setuptools (>= 0.6b3), python3-setuptools, python-all (>= 2.6.6-3), python3-all, debhelper (>= 9)
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Homepage: http://kaitai.io
-Vcs-Git: git://anonscm.debian.org/collab-maint/python-kaitaistruct.git
-Vcs-Browser: http://anonscm.debian.org/git/collab-maint/python-kaitaistruct.git
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/python-kaitaistruct.git
+Vcs-Browser: https://anonscm.debian.org/git/collab-maint/python-kaitaistruct.git
 X-Python-Version: >= 2.7
 X-Python3-Version: >= 3.4
 
@@ -27,16 +27,11 @@ Description: Kaitai Struct declarative parser generator for binary data
  [construct]: https://pypi.python.org/pypi/construct
  [Construct3]: http://tomerfiliba.com/blog/Survey-of-Construct3/
  .
- Further reading:
- .
- * [About Kaitai Struct](http://kaitai.io/)
- * [About API implemented in this library](http://doc.kaitai.io/stream_api.html)
- * [Python-specific notes](http://doc.kaitai.io/lang_python.html)
 
 Package: python3-kaitaistruct
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}
-Description: Kaitai Struct declarative parser generator for binary data
+Description: Kaitai Struct declarative parser generator for binary data (python3)
  This library implements Kaitai Struct API for Python.
  .
  [Kaitai Struct](http://kaitai.io) is a declarative language used for
@@ -50,9 +45,4 @@ Description: Kaitai Struct declarative parser generator for binary data
  [construct]: https://pypi.python.org/pypi/construct
  [Construct3]: http://tomerfiliba.com/blog/Survey-of-Construct3/
  .
- Further reading:
- .
- * [About Kaitai Struct](http://kaitai.io/)
- * [About API implemented in this library](http://doc.kaitai.io/stream_api.html)
- * [Python-specific notes](http://doc.kaitai.io/lang_python.html)
-
+ This is the Python3 package.
