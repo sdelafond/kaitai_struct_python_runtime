@@ -16,17 +16,14 @@ Depends: ${misc:Depends}, ${python:Depends}
 Description: Kaitai Struct declarative parser generator for binary data
  This library implements Kaitai Struct API for Python.
  .
- [Kaitai Struct](http://kaitai.io) is a declarative language used for
- describe various binary data structures, laid out in files or in memory:
- i.e. binary file formats, network stream packet formats, etc.
+ Kaitai Struct is a declarative language used for describe various
+ binary data structures, laid out in files or in memory: i.e. binary
+ file formats, network stream packet formats, etc.
  .
- It is similar to Python's [construct] and [Construct3], but it is
+ It is similar to Python's construct and Construct3, but it is
  language-agnostic. The format description is done in YAML-based .ksy
- format, which then can be compiled into a wide range of target languages.
- .
- [construct]: https://pypi.python.org/pypi/construct
- [Construct3]: http://tomerfiliba.com/blog/Survey-of-Construct3/
- .
+ format, which then can be compiled into a wide range of target
+ languages.
 
 Package: python3-kaitaistruct
 Architecture: all
@@ -34,15 +31,13 @@ Depends: ${misc:Depends}, ${python3:Depends}
 Description: Kaitai Struct declarative parser generator for binary data (python3)
  This library implements Kaitai Struct API for Python.
  .
- [Kaitai Struct](http://kaitai.io) is a declarative language used for
- describe various binary data structures, laid out in files or in memory:
- i.e. binary file formats, network stream packet formats, etc.
+ Kaitai Struct is a declarative language used for describe various
+ binary data structures, laid out in files or in memory: i.e. binary
+ file formats, network stream packet formats, etc.
  .
- It is similar to Python's [construct] and [Construct3], but it is
+ It is similar to Python's construct and Construct3, but it is
  language-agnostic. The format description is done in YAML-based .ksy
- format, which then can be compiled into a wide range of target languages.
- .
- [construct]: https://pypi.python.org/pypi/construct
- [Construct3]: http://tomerfiliba.com/blog/Survey-of-Construct3/
+ format, which then can be compiled into a wide range of target
+ languages.
  .
  This is the Python3 package.
