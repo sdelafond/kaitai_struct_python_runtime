@@ -1,12 +1,7 @@
 import itertools
 import sys
 from struct import unpack
-
-try:
-    import cStringIO
-    BytesIO = cStringIO.StringIO
-except ImportError:
-    from io import BytesIO  # noqa
+from io import BytesIO  # noqa
 
 PY2 = sys.version_info[0] == 2
 
@@ -17,7 +12,7 @@ PY2 = sys.version_info[0] == 2
 #   KS runtime library by this version number;
 # * distribution utils (setup.py) use this when packaging for PyPI
 #
-__version__ = '0.7'
+__version__ = '0.8'
 
 
 class KaitaiStruct(object):
@@ -30,6 +25,9 @@ class KaitaiStruct(object):
     def __exit__(self, *args, **kwargs):
         self.close()
 
+    def close(self):
+        self._io.close()
+
     @classmethod
     def from_file(cls, filename):
         f = open(filename, 'rb')
@@ -40,8 +38,13 @@ class KaitaiStruct(object):
             f.close()
             raise
 
-    def close(self):
-        self._io.close()
+    @classmethod
+    def from_bytes(cls, buf):
+        return cls(KaitaiStream(BytesIO(buf)))
+
+    @classmethod
+    def from_io(cls, io):
+        return cls(KaitaiStream(io))
 
 
 class KaitaiStream(object):
@@ -82,19 +85,14 @@ class KaitaiStream(object):
         # current file / StringIO size, thus we use the following
         # trick.
         io = self._io
-
         # Remember our current position
         cur_pos = io.tell()
-
         # Seek to the end of the File object
         io.seek(0, 2)
-
         # Remember position, which is equal to the full length
         full_size = io.tell()
-
         # Seek back to the current position
         io.seek(cur_pos)
-
         return full_size
 
     # ========================================================================
@@ -236,10 +234,16 @@ class KaitaiStream(object):
     # ========================================================================
 
     def read_bytes(self, n):
+        if n < 0:
+            raise ValueError(
+                "requested invalid %d amount of bytes" %
+                (n,)
+            )
         r = self._io.read(n)
         if len(r) < n:
             raise EOFError(
-                "requested %d bytes, but got only %d bytes" % (n, len(r))
+                "requested %d bytes, but got only %d bytes" %
+                (n, len(r))
             )
         return r
 
@@ -253,7 +257,7 @@ class KaitaiStream(object):
             if c == b'':
                 if eos_error:
                     raise Exception(
-                        "End of stream reached, but no terminator %d found" %
+                        "end of stream reached, but no terminator %d found" %
                         (term,)
                     )
                 else:
@@ -271,32 +275,30 @@ class KaitaiStream(object):
         actual = self._io.read(len(expected))
         if actual != expected:
             raise Exception(
-                "Unexpected fixed contents: got %s, was waiting for %s" %
-                (str(actual), str(expected))
+                "unexpected fixed contents: got %r, was waiting for %r" %
+                (actual, expected)
             )
         return actual
 
     @staticmethod
-    def bytes_strip_right(src, pad_byte):
-        new_len = len(src)
+    def bytes_strip_right(data, pad_byte):
+        new_len = len(data)
         if PY2:
-            data = bytearray(src)
-        else:
-            data = src
+            # data[...] must yield an integer, to compare with integer pad_byte
+            data = bytearray(data)
 
-        while data[new_len - 1] == pad_byte:
+        while new_len > 0 and data[new_len - 1] == pad_byte:
             new_len -= 1
 
         return data[:new_len]
 
     @staticmethod
-    def bytes_terminate(src, term, include_term):
+    def bytes_terminate(data, term, include_term):
         new_len = 0
-        max_len = len(src)
+        max_len = len(data)
         if PY2:
-            data = bytearray(src)
-        else:
-            data = src
+            # data[...] must yield an integer, to compare with integer term
+            data = bytearray(data)
 
         while new_len < max_len and data[new_len] != term:
             new_len += 1
@@ -313,26 +315,14 @@ class KaitaiStream(object):
     @staticmethod
     def process_xor_one(data, key):
         if PY2:
-            r = bytearray(data)
-            for i in range(len(r)):
-                r[i] ^= key
-            return bytes(r)
+            return bytes(bytearray(v ^ key for v in bytearray(data)))
         else:
             return bytes(v ^ key for v in data)
 
     @staticmethod
     def process_xor_many(data, key):
         if PY2:
-            r = bytearray(data)
-            k = bytearray(key)
-            ki = 0
-            kl = len(k)
-            for i in range(len(r)):
-                r[i] ^= k[ki]
-                ki += 1
-                if ki >= kl:
-                    ki = 0
-            return bytes(r)
+            return bytes(bytearray(a ^ b for a, b in zip(bytearray(data), itertools.cycle(bytearray(key)))))
         else:
             return bytes(a ^ b for a, b in zip(data, itertools.cycle(key)))
 

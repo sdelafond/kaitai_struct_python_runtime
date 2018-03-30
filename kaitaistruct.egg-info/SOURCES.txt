@@ -1,5 +1,5 @@
 MANIFEST.in
-README.md
+README.rst
 kaitaistruct.py
 setup.cfg
 setup.py
