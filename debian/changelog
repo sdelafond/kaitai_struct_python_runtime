@@ -1,3 +1,14 @@
+python-kaitaistruct (0.8-1) unstable; urgency=medium
+
+  * Switch to DEP 14
+  * Update Vcs-* to point to salsa.d.o
+  * New upstream version 0.8
+  * Use https for copyright-format URL
+  * Use https for watch URL
+  * Bump-up Standards-Version
+
+ -- Sebastien Delafond <seb@debian.org>  Fri, 30 Mar 2018 14:02:03 +0200
+
 python-kaitaistruct (0.7-2) unstable; urgency=medium
 
   * Remove markdown from debian/control (Closes: #869265)
