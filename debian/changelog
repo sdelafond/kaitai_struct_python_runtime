@@ -7,7 +7,7 @@ python-kaitaistruct (0.8-2) unstable; urgency=medium
   [ Sébastien Delafond ]
   * Set maintainer to Debian QA Group
 
- -- Sebastien Delafond <seb@debian.org>  Thu, 19 Dec 2019 14:54:59 +0100
+ -- Sebastien Delafond <seb@debian.org>  Thu, 19 Dec 2019 15:01:38 +0100
 
 python-kaitaistruct (0.8-1) unstable; urgency=medium
 
