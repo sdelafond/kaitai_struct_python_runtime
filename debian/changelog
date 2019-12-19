@@ -1,3 +1,9 @@
+python-kaitaistruct (0.8-3) unstable; urgency=medium
+
+  * Remove python2 dependencies
+
+ -- Sebastien Delafond <seb@debian.org>  Thu, 19 Dec 2019 16:41:00 +0100
+
 python-kaitaistruct (0.8-2) unstable; urgency=medium
 
   [ Ondřej Nový ]
